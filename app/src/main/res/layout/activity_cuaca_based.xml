@@ -29,7 +29,7 @@
                     android:layout_marginTop="16dp"
                     android:text="@string/greeting"
                     android:textColor="@android:color/background_light"
-                    android:textSize="18sp"
+                    android:textSize="24sp"
                     android:textStyle="bold" />
 
                 <TextView
@@ -40,7 +40,7 @@
                     android:layout_centerHorizontal="true"
                     android:text="@string/full_name"
                     android:textColor="@android:color/background_light"
-                    android:textSize="16sp" />
+                    android:textSize="18sp" />
 
                 <TextView
                     android:id="@+id/tv_city"
@@ -51,7 +51,7 @@
                     android:layout_marginTop="16dp"
                     android:text="@string/city_us"
                     android:textColor="@android:color/background_light"
-                    android:textSize="16sp" />
+                    android:textSize="18sp" />
 
                 <TextView
                     android:id="@+id/tv_zipcode"
@@ -62,7 +62,7 @@
                     android:layout_marginTop="1dp"
                     android:text="ZipCode"
                     android:textColor="@android:color/background_light"
-                    android:textSize="12sp" />
+                    android:textSize="14sp" />
 
                 <!--<TextView-->
                 <!--android:layout_marginTop="16dp"-->
@@ -103,6 +103,7 @@
                     android:layout_below="@id/tv_temp_cuaca_today"
                     android:layout_centerHorizontal="true"
                     android:text="Sunny"
+                    android:textSize="16sp"
                     android:textColor="@android:color/white"
                     android:textStyle="bold" />
 
