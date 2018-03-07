@@ -27,15 +27,32 @@ public class MainActivity extends AppCompatActivity {
 
         btn_submit.setOnClickListener(new View.OnClickListener() {
             public void onClick(View arg0) {
-                String mfirstname = m_et_firstname.getText().toString();
-                String mlastname = m_et_lastname.getText().toString();
-                String mZipcode = m_et_zipcode.getText().toString();
+                if(m_et_firstname.getText().toString().length()==0){
+                    //Jika Form firsname Kosong
+                    m_et_firstname.setError("please insert your first name");
+                }else if(m_et_lastname.getText().toString().length()==0){
+                    //Jika Form lastname Kosong
+                    m_et_lastname.setError("please insert your last name");
+                }else if(m_et_zipcode.getText().toString().length()==0){
+                    //Jika Form lastname Zip Code kosong
+                    m_et_zipcode.setError("please insert ZIP code");
+                }else if(m_et_zipcode.getText().toString().length()>5) {
+                    //Jika Form lastname Kosong
+                    m_et_zipcode.setError("Zip Code Max 5 Digit");
+                }else if(m_et_zipcode.getText().toString().length()<5){
+                        //Jika Form lastname Kosong
+                        m_et_zipcode.setError("Zip Code Min 5 Digit");
+                }else {
+                    String mfirstname = m_et_firstname.getText().toString();
+                    String mlastname = m_et_lastname.getText().toString();
+                    String mZipcode = m_et_zipcode.getText().toString();
 
-                Intent i = new Intent(MainActivity.this, CuacaBasedActivity.class);
-                i.putExtra("FirstName", mfirstname);
-                i.putExtra("LastName",mlastname);
-                i.putExtra("ZipCode",mZipcode);
-                startActivity(i);
+                    Intent i = new Intent(MainActivity.this, CuacaBasedActivity.class);
+                    i.putExtra("FirstName", mfirstname);
+                    i.putExtra("LastName", mlastname);
+                    i.putExtra("ZipCode", mZipcode);
+                    startActivity(i);
+                }
             }
         });
 
