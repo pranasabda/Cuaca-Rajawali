@@ -2,6 +2,6 @@
     <string name="app_name">Cuaca Rajawali</string>
     <string name="greeting">Greeting</string>
     <string name="full_name">Full Name</string>
-    <string name="city_us">City,US</string>
+    <string name="city_us">US</string>
     <string name="_27_xb0">27°</string>
 </resources>
