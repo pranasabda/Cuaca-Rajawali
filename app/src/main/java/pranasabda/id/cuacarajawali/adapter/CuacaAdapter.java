@@ -22,7 +22,7 @@ public class CuacaAdapter extends ArrayAdapter<Cuaca> {
     private final AppCompatActivity context;
     private final List<Cuaca> cuaca;
 
-    public CuacaAdapter(AppCompatActivity context, List<Cuaca> cuaca){
+    public CuacaAdapter(AppCompatActivity context, List<Cuaca> cuaca) {
         super(context, R.layout.list_item, cuaca);
         this.context = context;
         this.cuaca = cuaca;
@@ -30,13 +30,13 @@ public class CuacaAdapter extends ArrayAdapter<Cuaca> {
 
     public View getView(int position, View view, ViewGroup parent) {
 
-        //Mempersiapkan Layout / ambil piring
+        //Mempersiapkan Layout
         LayoutInflater inflater = context.getLayoutInflater();
 
-        //siapin data / di buka
-        View rowView = inflater.inflate(R.layout.list_item,null,true);
+        //Siapkan data
+        View rowView = inflater.inflate(R.layout.list_item, null, true);
 
-        //Manggil data / data jadi
+        //Manggil data
         TextView dt = (TextView) rowView.findViewById(R.id.tv_day);
         TextView weather = (TextView) rowView.findViewById(R.id.tv_cuaca);
         TextView temp = (TextView) rowView.findViewById(R.id.tv_temp_detail);
@@ -54,17 +54,17 @@ public class CuacaAdapter extends ArrayAdapter<Cuaca> {
         temp.setText(cuaca.get(position).getTemp());
         humadity.setText(cuaca.get(position).getHumadity());
 
-        if (weather.getText().toString().equals("Clear")){
+        if (weather.getText().toString().equals("Clear")) {
             detailImage.setImageResource(R.drawable.ic_011_sun);
-        } else if (weather.getText().toString().equals("Clouds")){
+        } else if (weather.getText().toString().equals("Clouds")) {
             detailImage.setImageResource((R.drawable.ic_009_cloudy));
-        }else if (weather.getText().toString().equals("light_clouds")){
+        } else if (weather.getText().toString().equals("light_clouds")) {
             detailImage.setImageResource((R.drawable.ic_008_cloud));
-        }else if (weather.getText().toString().equals("Rain")){
+        } else if (weather.getText().toString().equals("Rain")) {
             detailImage.setImageResource((R.drawable.ic_006_raining));
-        }else if (weather.getText().toString().equals("Wind")){
+        } else if (weather.getText().toString().equals("Wind")) {
             detailImage.setImageResource((R.drawable.ic_003_wind));
-        }else {
+        } else {
 //            Toast.makeText(this, "Eureka", Toast.LENGTH_SHORT).show();
             detailImage.setImageResource(R.drawable.ic_001_wind_1);
         }
