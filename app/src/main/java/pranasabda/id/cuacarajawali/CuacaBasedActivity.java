@@ -48,25 +48,25 @@ public class CuacaBasedActivity extends AppCompatActivity {
 
         alert = new AlertDialog.Builder(this);
 
-        TextView m_tv_fullname = (TextView)findViewById(R.id.tv_fullname);
-        TextView m_tv_zipcode = (TextView)findViewById(R.id.tv_zipcode);
+        TextView m_tv_fullname = (TextView) findViewById(R.id.tv_fullname);
+        TextView m_tv_zipcode = (TextView) findViewById(R.id.tv_zipcode);
 
         Intent i = getIntent();
         Bundle b = i.getExtras();
-        String mtv_fullname =(String) b.get("FirstName");
+        String mtv_fullname = (String) b.get("FirstName");
         String mtv_lastname = (String) b.get("LastName");
-        String mtv_zipcode =(String) b.get("ZipCode");
+        String mtv_zipcode = (String) b.get("ZipCode");
 
-        if(b!=null)
-        {
-            m_tv_fullname.setText(mtv_fullname+" "+mtv_lastname);
+        if (b != null) {
+            m_tv_fullname.setText(mtv_fullname + " " + mtv_lastname);
             m_tv_zipcode.setText(mtv_zipcode);
         }
 
 
         listView = (ListView) findViewById(R.id.list_item_cuaca);
         cuacas = new ArrayList<Cuaca>();
-        String URL = "http://api.openweathermap.org/data/2.5/forecast?zip="+mtv_zipcode+",us&APPID=2939b4f9a70e7dd25e181b06ab14bc5d&mode=json&units=metric&cnt=17";
+        String URL = "http://api.openweathermap.org/data/2.5/forecast?zip=" + mtv_zipcode + ",us&APPID=2939b4f9a70e7dd25e181b06ab14bc5d&mode=json&units=metric&cnt=17";
+
         //Sample data sama semua.
         //"http://samples.openweathermap.org/data/2.5/forecast?zip="+mtv_zipcode+"&appid=b6907d289e10d714a6e88b30761fae22"
 
@@ -84,21 +84,21 @@ public class CuacaBasedActivity extends AppCompatActivity {
     private void requestCuaca(RequestParams params, String URL) {
         AsyncHttpClient client = new AsyncHttpClient();
 
-        client.get(URL, params, new AsyncHttpResponseHandler(){
+        client.get(URL, params, new AsyncHttpResponseHandler() {
 
             //Hide progress dialog
 
             @Override
             public void onSuccess(String response) {
 
-                android.util.Log.d("Respon e",">"+response);
+                android.util.Log.d("Respon e", ">" + response);
 
-                try{
+                try {
                     JSONObject weather = new JSONObject(response);
                     JSONArray listWeather = weather.getJSONArray("list");
 
                     //looping through all cuaca
-                    for(int i=0; i<listWeather.length(); i++) {
+                    for (int i = 0; i < listWeather.length(); i++) {
                         JSONObject weatherData = listWeather.getJSONObject(i);
                         String dt = convertDataTime(weatherData.getLong("dt"));
 
@@ -106,12 +106,12 @@ public class CuacaBasedActivity extends AppCompatActivity {
                         String w = main.getJSONObject(0).getString("main");
 
                         JSONObject temp = weatherData.getJSONObject("main");
-                        String t = String.valueOf(temp.getInt("temp"))+ "°";
+                        String t = String.valueOf(temp.getInt("temp")) + "°";
 
                         JSONObject humidity = weatherData.getJSONObject("main");
-                        String h = String.valueOf(humidity.getInt("humidity"))+ "%";
+                        String h = String.valueOf(humidity.getInt("humidity")) + "%";
 
-                        cuacas.add(new Cuaca(dt,t,w,h));
+                        cuacas.add(new Cuaca(dt, t, w, h));
 //                        TextView m_tv_temp_cuaca_today = (TextView)findViewById(R.id.tv_temp_cuaca_today);
 //                        TextView m_tv_detail_cuaca_today = (TextView)findViewById(R.id.tv_cuaca_id);
 //
@@ -123,7 +123,7 @@ public class CuacaBasedActivity extends AppCompatActivity {
                     listView.setAdapter(adapter);
 
 
-                } catch (Exception e){
+                } catch (Exception e) {
                     //RTO
                     e.printStackTrace();
                     alert.setTitle("Gagal");
@@ -148,20 +148,17 @@ public class CuacaBasedActivity extends AppCompatActivity {
                     alert.setIcon(android.R.drawable.ic_dialog_alert);
                     alert.setMessage("Terjadi kesalahan - 404");
                     alert.show();
-                }
-                else if (statusCode == 500) {
+                } else if (statusCode == 500) {
                     alert.setTitle("Gagal");
                     alert.setIcon(android.R.drawable.ic_dialog_alert);
                     alert.setMessage("Terjadi kesalahan - 500");
                     alert.show();
-                }
-                else if (statusCode == 502) {
+                } else if (statusCode == 502) {
                     alert.setTitle("Gagal");
                     alert.setIcon(android.R.drawable.ic_dialog_alert);
                     alert.setMessage("Terjadi kesalahan BadGateWay - 502");
                     alert.show();
-                }
-                else {
+                } else {
                     alert.setTitle("Gagal No Code ZIP");
                     alert.setIcon(android.R.drawable.ic_dialog_alert);
                     alert.setMessage("Terjadi kesalahan Kode ZIP dari API adalah : 94040 atau Koneksi Putus");
@@ -173,18 +170,18 @@ public class CuacaBasedActivity extends AppCompatActivity {
     }
 
     private String convertDataTime(Long dataTime) {
-        Date date = new Date(dataTime*1000);
+        Date date = new Date(dataTime * 1000);
         //pattern data harus benar contoh "EEE, dd MMM" atau "EEEE, dd MMM yy hh:mm"
         Format dateTimeFormat = new SimpleDateFormat("EEE,dd MMM");
         return dateTimeFormat.format(date);
     }
 
-    private void todayForcast(RequestParams params, String URL){
+    private void todayForcast(RequestParams params, String URL) {
 
         AsyncHttpClient client = new AsyncHttpClient();
 
         client.get(URL, params, new AsyncHttpResponseHandler() {
-            //            android.util.Log.d("Respon e",">"+response);
+            //android.util.Log.d("Respon e",">"+response);
             //looping through all cuaca
             //for(int i=0; i<1; i++)
             @Override
@@ -213,15 +210,15 @@ public class CuacaBasedActivity extends AppCompatActivity {
                         m_tv_temp_cuaca_today.setText(t);
                         m_tv_detail_cuaca_today.setText(w);
 
-                        if (w.equals("Clear")){
+                        if (w.equals("Clear")) {
                             detailImage.setImageResource(R.drawable.ic_011_sun_white);
-                        } else if (w.equals("Clouds")){
+                        } else if (w.equals("Clouds")) {
                             detailImage.setImageResource((R.drawable.ic_009_cloudy_white));
-                        }else if (w.equals("light_clouds")){
+                        } else if (w.equals("light_clouds")) {
                             detailImage.setImageResource((R.drawable.ic_008_cloud_white));
-                        }else if (w.equals("Rain")){
+                        } else if (w.equals("Rain")) {
                             detailImage.setImageResource((R.drawable.ic_006_raining_white));
-                        }else if (w.equals("Wind")){
+                        } else if (w.equals("Wind")) {
                             detailImage.setImageResource((R.drawable.ic_003_wind_white));
                         } else {
                             detailImage.setImageResource(R.drawable.ic_001_wind_1_white);
@@ -247,19 +244,19 @@ public class CuacaBasedActivity extends AppCompatActivity {
         Calendar c = Calendar.getInstance();
 //        c.setTime(dt);
         int hours = c.get(Calendar.HOUR_OF_DAY);
-        Log.d("jam", "getTimeFromAndroid: "+hours);
+        Log.d("jam", "getTimeFromAndroid: " + hours);
 
-        if(hours>=0 && hours<=12){
-            TextView m_tv_greeting = (TextView)findViewById(R.id.tv_greeting);
+        if (hours >= 0 && hours <= 12) {
+            TextView m_tv_greeting = (TextView) findViewById(R.id.tv_greeting);
             m_tv_greeting.setText("Good Morning");
-        }else if(hours>=12 && hours<=16){
-            TextView m_tv_greeting = (TextView)findViewById(R.id.tv_greeting);
+        } else if (hours >= 12 && hours <= 16) {
+            TextView m_tv_greeting = (TextView) findViewById(R.id.tv_greeting);
             m_tv_greeting.setText("Good Afternoon");
-        }else if(hours>=16 && hours<=21){
-            TextView m_tv_greeting = (TextView)findViewById(R.id.tv_greeting);
+        } else if (hours >= 16 && hours <= 21) {
+            TextView m_tv_greeting = (TextView) findViewById(R.id.tv_greeting);
             m_tv_greeting.setText("Good Evening");
-        }else if(hours>=21 && hours<=24){
-            TextView m_tv_greeting = (TextView)findViewById(R.id.tv_greeting);
+        } else if (hours >= 21 && hours <= 24) {
+            TextView m_tv_greeting = (TextView) findViewById(R.id.tv_greeting);
             m_tv_greeting.setText("Good Night");
         }
     }
