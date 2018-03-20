@@ -54,6 +54,7 @@ public class CuacaAdapter extends ArrayAdapter<Cuaca> {
         temp.setText(cuaca.get(position).getTemp());
         humadity.setText(cuaca.get(position).getHumadity());
 
+
         if (weather.getText().toString().equals("Clear")) {
             detailImage.setImageResource(R.drawable.ic_011_sun);
         } else if (weather.getText().toString().equals("Clouds")) {
