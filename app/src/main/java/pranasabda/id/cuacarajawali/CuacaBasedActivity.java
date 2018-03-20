@@ -97,6 +97,11 @@ public class CuacaBasedActivity extends AppCompatActivity {
                     JSONObject weather = new JSONObject(response);
                     JSONArray listWeather = weather.getJSONArray("list");
 
+                    //Issue Fix from : https://stackoverflow.com/a/29553728/8670957
+                    JSONObject cityWeather = weather.getJSONObject("city");
+                    String cityName = cityWeather.getString("name");
+                    //android.util.Log.d("Ambil nama kota", "onSuccess: " + cityName);
+
                     //looping through all cuaca
                     for (int i = 0; i < listWeather.length(); i++) {
                         JSONObject weatherData = listWeather.getJSONObject(i);
@@ -189,6 +194,12 @@ public class CuacaBasedActivity extends AppCompatActivity {
                 try {
                     JSONObject weather = new JSONObject(response);
                     JSONArray listWeather = weather.getJSONArray("list");
+
+                    //Issue Fix Array/Object from : https://stackoverflow.com/a/29553728/8670957
+                    JSONObject cityWeather = weather.getJSONObject("city");
+                    String cityName = cityWeather.getString("name");
+                    android.util.Log.d("Ambil nama kota", "onSuccess: " + cityName);
+
                     int i = 0;
                     if (i == 0) {
                         JSONObject weatherData = listWeather.getJSONObject(i);
@@ -203,10 +214,12 @@ public class CuacaBasedActivity extends AppCompatActivity {
                         JSONObject humidity = weatherData.getJSONObject("main");
                         String h = String.valueOf(humidity.getInt("humidity")) + "%";
 
-                        cuacas.add(new Cuaca(dt, t, w, h));
+                        //cuacas.add(new Cuaca(dt, t, w, h));
                         TextView m_tv_temp_cuaca_today = (TextView) findViewById(R.id.tv_temp_cuaca_today);
                         TextView m_tv_detail_cuaca_today = (TextView) findViewById(R.id.tv_cuaca_id);
+                        TextView m_tv_city_cucac_today = (TextView) findViewById(R.id.tv_city);
                         ImageView detailImage = (ImageView) findViewById(R.id.icon_cuaca_today);
+                        m_tv_city_cucac_today.setText(cityName + ", US");
                         m_tv_temp_cuaca_today.setText(t);
                         m_tv_detail_cuaca_today.setText(w);
 
